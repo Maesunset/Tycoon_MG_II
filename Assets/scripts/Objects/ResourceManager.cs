@@ -13,21 +13,19 @@ public class ResourceManager : MonoBehaviour
     //variables Privadas
 
     private float currentResources;
+    private bool autoclaim;
 
     void Start()
     {
         //Inicialiar variables 
         currentResources = 0;
         Update_UI();
-
-
     }
-
     // funciones
-
     //Agregar recursos
     public void AddResources(float _valeu)
     {
+
         currentResources += _valeu;
         Update_UI();
     }

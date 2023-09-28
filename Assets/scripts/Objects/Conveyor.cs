@@ -23,9 +23,9 @@ public class Conveyor : MonoBehaviour
         if(other.gameObject.CompareTag("Resource"))
         {
             Transform collidedObject = other.gameObject.transform;
-            collidedObject.position = new Vector3(collidedObject.position.x+movementVector.x*Time.deltaTime,
-                                                  collidedObject.position.y + movementVector.y * Time.deltaTime,
-                                                  collidedObject.position.z + movementVector.z * Time.deltaTime);
+            collidedObject.position = new Vector3(collidedObject.position.x+movementVector.x*Time.deltaTime*speed,
+                                                  collidedObject.position.y + movementVector.y * Time.deltaTime*speed,
+                                                  collidedObject.position.z + movementVector.z * Time.deltaTime * speed);
 
         }
     }

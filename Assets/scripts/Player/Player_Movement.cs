@@ -68,7 +68,7 @@ public class Player_Movement : MonoBehaviour
     //funcion provicional de gravedad
     void Gravity()
     {
-        chc.Move(new Vector3(0f, -4f, 0f));
+        chc.Move(new Vector3(0f, -10f, 0f));
     }
 
     void AlinePlayer()
