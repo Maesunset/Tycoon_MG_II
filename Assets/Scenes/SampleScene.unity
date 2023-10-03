@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 212612609}
   - component: {fileID: 212612614}
   - component: {fileID: 212612613}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -376,6 +376,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1967863831}
+  - {fileID: 250586988}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 207.045, z: 0}
 --- !u!143 &212612613
@@ -420,7 +421,57 @@ MonoBehaviour:
   walkSpeed: 5
   runSpeed: 8
   rotationSpeed: 10
+  jumpForce: 5
   canMove: 1
+  GD: {fileID: 250586989}
+--- !u!1 &250586987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 250586988}
+  - component: {fileID: 250586989}
+  m_Layer: 3
+  m_Name: GroundDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &250586988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250586987}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.67, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 212612612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &250586989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250586987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ae86d82450c7a468d04096a221bf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radio: 0.5
+  layer:
+    serializedVersion: 2
+    m_Bits: 55
 --- !u!1 &267207594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7959160265523746298, guid: 4ad46fc485a2a4246abdcf3898907b5d, type: 3}
@@ -3004,7 +3055,7 @@ GameObject:
   - component: {fileID: 1967863834}
   - component: {fileID: 1967863833}
   - component: {fileID: 1967863832}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Player
   m_Icon: {fileID: 0}

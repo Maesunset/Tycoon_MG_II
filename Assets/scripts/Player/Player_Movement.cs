@@ -7,13 +7,15 @@ public class Player_Movement : MonoBehaviour
 {
     //variables publicas
     public Transform cameraAim;
-    public float walkSpeed, runSpeed, rotationSpeed;
+    public float walkSpeed, runSpeed, rotationSpeed, jumpForce;
     public bool canMove;
+    public GoundDetector GD;
 
     //variables privadas
-    private Vector3 vectorMovement;
+    private Vector3 vectorMovement,verticalForce;
     private float speed;
     private CharacterController chc;
+    private bool isGrounded;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class Player_Movement : MonoBehaviour
         //inicializa la velocidad y el vector
         speed = walkSpeed;
         vectorMovement = Vector3.zero;
+        verticalForce = Vector3.zero;
 
     }
 
@@ -32,7 +35,10 @@ public class Player_Movement : MonoBehaviour
             Walk();
             Run();
             AlinePlayer();
+            jump();
         }
+        Gravity();
+        CheckGround();
     }
 
     void Walk()
@@ -45,7 +51,7 @@ public class Player_Movement : MonoBehaviour
         vectorMovement = vectorMovement.normalized;
 
         // acomodamos la direccion a la direccion de la camara 
-        cameraAim.TransformDirection(vectorMovement);
+        vectorMovement = cameraAim.TransformDirection(vectorMovement);
 
         //Mover Player
         chc.Move(vectorMovement * speed * Time.deltaTime);
@@ -64,11 +70,28 @@ public class Player_Movement : MonoBehaviour
             speed = walkSpeed;
         }
     }
+    void jump()
+    {
+        if (isGrounded && Input.GetAxis("Jump") > 0f)
+        {
+            verticalForce = new Vector3(0f, jumpForce, 0f);
+            isGrounded = false;
+        }
+    }
 
     //funcion provicional de gravedad
     void Gravity()
     {
-        chc.Move(new Vector3(0f, -10f, 0f));
+        if(!isGrounded)
+        {
+            verticalForce += Physics.gravity * Time.deltaTime;
+        }
+        else
+        {
+            verticalForce = new Vector3(0f, -2f, 0f);
+        }
+
+        chc.Move(verticalForce * Time.deltaTime);
     }
 
     void AlinePlayer()
@@ -76,7 +99,13 @@ public class Player_Movement : MonoBehaviour
         //
         if(chc.velocity.magnitude > 0f)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(vectorMovement),rotationSpeed*Time.deltaTime );
+            transform.rotation = Quaternion.Slerp(transform.rotation, 
+            Quaternion.LookRotation(vectorMovement),rotationSpeed*Time.deltaTime );
         }
+    }
+
+    void CheckGround()
+    {
+        isGrounded = GD.IsGrounded();
     }
 }
