@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,7 +14,7 @@ public class Player_Movement : MonoBehaviour
 
     //variables privadas
     private Vector3 vectorMovement,verticalForce;
-    private float speed;
+    private float speed, currentSpeed;
     private CharacterController chc;
     private bool isGrounded;
 
@@ -22,7 +23,8 @@ public class Player_Movement : MonoBehaviour
         //agarra el character controller
         chc = GetComponent<CharacterController>();
         //inicializa la velocidad y el vector
-        speed = walkSpeed;
+        speed = 0f;
+        currentSpeed = 0f;
         vectorMovement = Vector3.zero;
         verticalForce = Vector3.zero;
 
@@ -53,8 +55,11 @@ public class Player_Movement : MonoBehaviour
         // acomodamos la direccion a la direccion de la camara 
         vectorMovement = cameraAim.TransformDirection(vectorMovement);
 
+        // Guardamos la velocidad actual con suavizado
+        currentSpeed = Mathf.Lerp(currentSpeed, vectorMovement.magnitude * speed, 10f * Time.deltaTime);
+
         //Mover Player
-        chc.Move(vectorMovement * speed * Time.deltaTime);
+        chc.Move(vectorMovement * currentSpeed * Time.deltaTime);
 
     }
 
@@ -107,5 +112,10 @@ public class Player_Movement : MonoBehaviour
     void CheckGround()
     {
         isGrounded = GD.IsGrounded();
+    }
+
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
     }
 }
