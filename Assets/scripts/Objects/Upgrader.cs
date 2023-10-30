@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,12 @@ public class Upgrader : MonoBehaviour
     public ResourceManager ResourceManager;
     public float Costo;
     public string text;
-    public GameObject spawner;
+    public bool isDropper;
 
     public UnityEvent onActivated;
     //variables privadas
     private TextMesh textMesh;
+    private int upgadeTier = 1;
 
     void Start()
     {
@@ -42,15 +44,6 @@ public class Upgrader : MonoBehaviour
 
     public void AddCost()
     {
-        spawner.GetComponent<ResourceDropper>().UpgradeDropper();
-        if (Costo == 0f)
-        {
-            Costo = 10;
-        }
-        Costo *= 2;
-        if(spawner.GetComponent<ResourceDropper>().dropperTier == 3)
-        {
-            Destroy(gameObject);
-        }
+        
     }
 }
