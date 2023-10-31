@@ -10,9 +10,9 @@ public class Upgrader : MonoBehaviour
     public ResourceManager ResourceManager;
     public float Costo;
     public string text;
-    public bool isDropper;
-
+   // public bool isDropper;
     public UnityEvent onActivated;
+
     //variables privadas
     private TextMesh textMesh;
     private int upgadeTier = 1;
