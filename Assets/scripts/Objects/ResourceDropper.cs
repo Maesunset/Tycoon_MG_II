@@ -16,7 +16,7 @@ public class ResourceDropper : MonoBehaviour
     void Start()
     {
         dropperTier = 1;
-        InvokeRepeating("DropResource", spawnTime, 1f);
+        InvokeRepeating("DropResource", 1f, spawnTime);
     }
     // dropResources
     void DropResource()

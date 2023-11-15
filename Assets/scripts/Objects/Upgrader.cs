@@ -10,12 +10,12 @@ public class Upgrader : MonoBehaviour
     public ResourceManager ResourceManager;
     public float Costo;
     public string text;
-   // public bool isDropper;
     public UnityEvent onActivated;
+    public bool isDropper;
+    public int dropperTier;
 
     //variables privadas
     private TextMesh textMesh;
-    private int upgadeTier = 1;
 
     void Start()
     {
@@ -38,12 +38,36 @@ public class Upgrader : MonoBehaviour
                 // le cobra el costo
                 ResourceManager.RemoveResources(Costo);
                 onActivated.Invoke();
+                if (isDropper)
+                {
+                    upgradeOrDelete();
+                    Debug.Log("acabas de mejorar un droper");
+                }
             }
         }
     }
 
     public void AddCost()
     {
-        
+        if(Costo <= 0)
+        {
+            Costo = 10;
+        }
+        else
+        {
+            Costo *=2;
+        }
+    }
+    public void upgradeOrDelete()
+    {
+        if (dropperTier == 5)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            AddCost();
+            dropperTier++;
+        }
     }
 }
